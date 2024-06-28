@@ -1,0 +1,11 @@
+{
+    "name": "pagarme-payment-backend",
+    "version": "1.0.0",
+    "main": "api/transaction.js",
+    "scripts": {
+        "start": "vercel dev"
+    },
+    "dependencies": {
+        "axios": "^0.21.1"
+    }
+}
