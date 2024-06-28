@@ -3,74 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pagar.me Payment Simulation</title>
+    <title>Pagamentos</title>
 </head>
 <body>
-    <h1>Simulação de Pagamento</h1>
-    <form id="payment-form">
-        <input type="text" id="card-number" placeholder="Número do Cartão" required><br>
-        <input type="text" id="card-expiry" placeholder="Validade (MM/AA)" required><br>
-        <input type="text" id="card-cvv" placeholder="CVV" required><br>
-        <input type="text" id="card-holder-name" placeholder="Nome do Titular" required><br>
+    <h1>Escolha uma opção de pagamento:</h1>
+    
+    <!-- Formulário para escolher o método de pagamento -->
+    <form action="process_payment.php" method="POST">
+        <label for="payment-method">Método de Pagamento:</label>
+        <select name="payment-method" id="payment-method">
+            <option value="paypal">PayPal</option>
+            <option value="square">Square</option>
+            <option value="stripe">Stripe</option>
+        </select>
         <button type="submit">Pagar</button>
     </form>
-    <div id="result"></div>
 
     <script>
-        document.getElementById('payment-form').addEventListener('submit', function(event) {
+        // Script para redirecionar para a página apropriada baseada na seleção
+        document.querySelector('form').addEventListener('submit', function(event) {
             event.preventDefault();
-            simulatePayment();
+            const paymentMethod = document.getElementById('payment-method').value;
+            switch (paymentMethod) {
+                case 'paypal':
+                    window.location.href = 'paypal.html';
+                    break;
+                case 'square':
+                    window.location.href = 'square.html';
+                    break;
+                case 'stripe':
+                    window.location.href = 'stripe.html';
+                    break;
+                default:
+                    alert('Método de pagamento inválido');
+            }
         });
-
-        function simulatePayment() {
-            const cardNumber = document.getElementById('card-number').value;
-            const cardExpiry = document.getElementById('card-expiry').value;
-            const cardCvv = document.getElementById('card-cvv').value;
-            const cardHolderName = document.getElementById('card-holder-name').value;
-            
-            const resultDiv = document.getElementById('result');
-            resultDiv.innerHTML = '<p>Processando pagamento...</p>';
-
-            fetch('/api/transaction', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    amount: 1000,  // valor do pagamento em centavos
-                    card_number: cardNumber,
-                    card_cvv: cardCvv,
-                    card_expiration_date: cardExpiry.replace('/', ''),
-                    card_holder_name: cardHolderName,
-                    customer: {
-                        external_id: '#12345',
-                        name: 'Nome do Cliente',
-                        type: 'individual',
-                        country: 'br',
-                        email: 'email@cliente.com',
-                        documents: [
-                            {
-                                type: 'cpf',
-                                number: '12345678900'
-                            }
-                        ],
-                        phone_numbers: ['+5511999998888'],
-                        birthday: '1985-01-01'
-                    }
-                })
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.status === 'paid') {
-                    resultDiv.innerHTML = '<p>Pagamento realizado com sucesso!</p>';
-                } else {
-                    resultDiv.innerHTML = `<p>Erro ao processar pagamento: ${data.status}</p>`;
-                }
-            })
-            .catch(error => {
-                resultDiv.innerHTML = `<p>Erro ao processar pagamento: ${error.message}</p>`;
-            });
-        }
     </script>
 </body>
 </html>

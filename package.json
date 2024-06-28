@@ -1,11 +1,14 @@
 {
-    "name": "pagarme-payment-backend",
+    "name": "seu-projeto-multiapipagamento",
     "version": "1.0.0",
-    "main": "api/transaction.js",
+    "main": "index.js",  
     "scripts": {
-        "start": "vercel dev"
+        "start": "node index.js"  
     },
     "dependencies": {
-        "axios": "^0.21.1"
+        "axios": "^0.21.1",
+        "paypal-rest-sdk": "^1.10.0",
+        "square": "^3.5.1",
+        "stripe": "^8.190.0"
     }
 }
