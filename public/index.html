@@ -3,39 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pagamentos</title>
+    <title>Pagamento PayPal</title>
 </head>
 <body>
-    <h1>Escolha uma opção de pagamento:</h1>
-    
-    <!-- Formulário para escolher o método de pagamento -->
-    <form action="process_payment.php" method="POST">
-        <label for="payment-method">Método de Pagamento:</label>
-        <select name="payment-method" id="payment-method">
-            <option value="paypal">PayPal</option>
-            <option value="square">Square</option>
-            <option value="stripe">Stripe</option>
-        </select>
-        <button type="submit">Pagar</button>
+    <h1>Simulação de Pagamento com PayPal</h1>
+    <form id="payment-form">
+        <button type="submit">Pagar com PayPal</button>
     </form>
 
     <script>
-        // Script para redirecionar para a página apropriada baseada na seleção
-        document.querySelector('form').addEventListener('submit', function(event) {
+        document.getElementById('payment-form').addEventListener('submit', async (event) => {
             event.preventDefault();
-            const paymentMethod = document.getElementById('payment-method').value;
-            switch (paymentMethod) {
-                case 'paypal':
-                    window.location.href = 'paypal.html';
-                    break;
-                case 'square':
-                    window.location.href = 'square.html';
-                    break;
-                case 'stripe':
-                    window.location.href = 'stripe.html';
-                    break;
-                default:
-                    alert('Método de pagamento inválido');
+            const response = await fetch('/api/paypal/transaction', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+            const data = await response.json();
+            if (data.forwardLink) {
+                window.location.href = data.forwardLink;
+            } else {
+                alert('Erro ao criar pagamento');
             }
         });
     </script>
