@@ -1,14 +1,14 @@
 {
-    "name": "seu-projeto-multiapipagamento",
+    "name": "pagarme",
     "version": "1.0.0",
-    "main": "index.js",  
+    "main": "index.js",
     "scripts": {
-        "start": "node index.js"  
+        "start": "node index.js"
     },
     "dependencies": {
-        "axios": "^0.21.1",
-        "paypal-rest-sdk": "^1.10.0",
-        "square": "^3.5.1",
+        "axios": "^1.7.2",
+        "paypal-rest-sdk": "^1.8.1",
+        "square": "^37.1.0",
         "stripe": "^8.190.0"
     }
 }
