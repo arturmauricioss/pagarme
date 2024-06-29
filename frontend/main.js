@@ -20,7 +20,7 @@ function handlePayment(method) {
     const fillColor = document.getElementById('fill-color').value;
     const borderColor = document.getElementById('border-color').value;
 
-    fetch(`https://seu-backend.vercel.app/pay/${method}`, {
+    fetch(`https://pagarme-chi.vercel.app/api/pay/${method}`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
