@@ -25,3 +25,4 @@ Este é um projeto simples de sistema de pagamentos para comprar imagens SVG.
 ## Licença
 
 Este projeto é de uso livre para fins educativos e de portfólio.
+mudança basica
